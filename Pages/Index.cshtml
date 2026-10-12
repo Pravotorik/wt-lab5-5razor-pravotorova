@@ -1,0 +1,111 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge-wrap">
+            <span class="hero-badge">Добро пожаловать</span>
+        </div>
+        <h1>Отель <span class="accent">Pravotorik</span></h1>
+        <p class="hero-sub">Уютное пространство в центре города. Каждая деталь создана для вашего отдыха.</p>
+        <div class="hero-actions">
+            <a asp-page="/Rooms/Index" class="btn btn-primary">Смотреть номера</a>
+            <a asp-page="/Guests/Index" class="btn btn-secondary">Наши гости</a>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container">
+        <div class="features">
+            <div class="feature">
+                <div class="feature-num">01</div>
+                <h3>Уютные номера</h3>
+                <p>Каждый номер оформлен с вниманием к деталям.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">02</div>
+                <h3>Премиум-сервис</h3>
+                <p>Забота о каждом госте круглосуточно.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">03</div>
+                <h3>Вид на море</h3>
+                <p>Живописная панорама из окон.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-num">04</div>
+                <h3>Завтрак включён</h3>
+                <p>Свежая выпечка и кофе каждое утро.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-num">6</div>
+                <div class="stat-label">Номеров</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">4</div>
+                <div class="stat-label">Категории</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Ресепшн</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">5.0</div>
+                <div class="stat-label">Рейтинг</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <h2>Отзывы гостей</h2>
+            <p>Что говорят те, кто уже побывал у нас</p>
+        </div>
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="testimonial-head">
+                    <img src="https://i.pravatar.cc/100?img=47" alt="Анна" />
+                    <div>
+                        <strong>Анна Смирнова</strong>
+                        <span>Минск</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">Прекрасный отель! Номер был просторным, персонал очень внимательным. Обязательно вернёмся снова.</p>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-head">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Иван" />
+                    <div>
+                        <strong>Иван Петров</strong>
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">Идеальное место для отдыха. Атмосфера уюта, вкусные завтраки и красивый вид из окна.</p>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-head">
+                    <img src="https://i.pravatar.cc/100?img=32" alt="Мария" />
+                    <div>
+                        <strong>Мария Ковалёва</strong>
+                        <span>Варшава</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">Всё на высшем уровне. Особенно порадовал дизайн номеров — каждая деталь продумана.</p>
+            </div>
+        </div>
+    </div>
+</section>

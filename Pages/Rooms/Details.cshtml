@@ -1,0 +1,48 @@
+﻿@page "{id:int?}"
+@model wt_lab5_5razor_pravotorova.Pages.Rooms.DetailsModel
+@{
+    ViewData["Title"] = $"Номер {Model.Room?.Number}";
+}
+
+<div class="container detail-page">
+    @if (Model.Room == null)
+    {
+        <div class="not-found">
+            <h1>Номер не найден</h1>
+            <a asp-page="/Rooms/Index" class="btn btn-primary">← К списку</a>
+        </div>
+    }
+    else
+    {
+        <div class="detail-card">
+            <div class="detail-card__image" style="background-image: url('@Model.Room.ImageUrl');"></div>
+            <div class="detail-card__body">
+                <div class="room-card__category">@Model.Room.Category</div>
+                <h1>Номер @Model.Room.Number</h1>
+                <p class="detail-desc">@Model.Room.Description</p>
+
+                <div class="detail-info">
+                    <div class="detail-info__item">
+                        <div class="detail-info__label">Вместимость</div>
+                        <div class="detail-info__value">@Model.Room.Capacity гостя</div>
+                    </div>
+                    <div class="detail-info__item">
+                        <div class="detail-info__label">Статус</div>
+                        <div class="detail-info__value">@(Model.Room.IsAvailable ? "Свободен" : "Занят")</div>
+                    </div>
+                </div>
+
+                <div class="detail-price">@Model.Room.PricePerNight ₽ <span>/ ночь</span></div>
+
+                <div class="detail-actions">
+                    <a asp-page="/Rooms/Index" class="btn btn-outline">← Назад</a>
+                    <a asp-page="/Rooms/Edit" asp-route-id="@Model.Room.Id" class="btn btn-primary">Редактировать</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@Model.Room.Id"
+                          onsubmit="return confirm('Удалить номер?');" style="display:inline">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

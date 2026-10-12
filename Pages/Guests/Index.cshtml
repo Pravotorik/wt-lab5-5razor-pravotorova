@@ -1,0 +1,27 @@
+﻿@page
+@model wt_lab5_5razor_pravotorova.Pages.Guests.IndexModel
+@{
+    ViewData["Title"] = "Гости";
+}
+
+<div class="container page-container">
+    <div class="page-head">
+        <div>
+            <h1>Наши гости</h1>
+            <p>@Model.Guests.Count человек выбрали Отель Pravotorik</p>
+        </div>
+    </div>
+
+    <div class="guest-grid">
+        @foreach (var g in Model.Guests)
+        {
+            <div class="guest-card">
+                <img src="@g.AvatarUrl" alt="@g.FullName" class="guest-avatar" />
+                <h3 class="guest-name">@g.FullName</h3>
+                <p class="guest-info">@g.Email</p>
+                <p class="guest-info">@g.Phone</p>
+                <p class="guest-info">@g.Country</p>
+            </div>
+        }
+    </div>
+</div>

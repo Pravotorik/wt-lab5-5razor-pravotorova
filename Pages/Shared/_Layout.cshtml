@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Отель Pravotorik</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a asp-page="/Index" class="brand">
+                <span class="brand-logo" aria-hidden="true">
+                    <svg viewBox="0 0 44 44" width="42" height="42" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#E91E63" />
+                                <stop offset="100%" stop-color="#F78CA8" />
+                            </linearGradient>
+                        </defs>
+                        <!-- круг-фон -->
+                        <circle cx="22" cy="22" r="21" fill="#FADADD" />
+                        <!-- стилизованная "P" -->
+                        <path d="M15 32 V12 H24 C28 12 31 14.5 31 18.5 C31 22.5 28 25 24 25 H19 V32 Z"
+                              fill="none"
+                              stroke="url(#brandGrad)"
+                              stroke-width="3"
+                              stroke-linejoin="round"
+                              stroke-linecap="round" />
+                        <!-- звёздочка сверху справа -->
+                        <path d="M33 8 L34 11 L37 12 L34 13 L33 16 L32 13 L29 12 L32 11 Z"
+                              fill="#FFE08A" />
+                    </svg>
+                </span>
+                <span class="brand-text">Отель Pravotorik</span>
+            </a>
+            <nav class="site-nav">
+                <a asp-page="/Index">Главная</a>
+                <a asp-page="/Rooms/Index">Номера</a>
+                <a asp-page="/Guests/Index">Гости</a>
+                <a asp-page="/Rooms/Book" class="nav-cta">Забронировать</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            © @DateTime.Now.Year <strong>Отель Pravotorik</strong> · Уют, в котором хочется остаться
+        </div>
+    </footer>
+</body>
+</html>

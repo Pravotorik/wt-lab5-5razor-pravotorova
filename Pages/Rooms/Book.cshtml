@@ -1,0 +1,53 @@
+﻿@page
+@model wt_lab5_5razor_pravotorova.Pages.Rooms.BookModel
+@{
+    ViewData["Title"] = "Бронирование";
+}
+
+<div class="container form-page">
+    <div class="form-wrap">
+        <h1>Бронирование номера</h1>
+        <p class="form-sub">Выберите свободный номер из списка</p>
+
+        @if (Model.Message != null)
+        {
+            <div class="alert @(Model.Success ? "alert-success" : "alert-danger")">
+                @Model.Message
+            </div>
+        }
+
+        @if (Model.AvailableRooms.Count == 0)
+        {
+            <p class="empty">Сейчас нет свободных номеров.</p>
+            <a asp-page="/Rooms/Index" class="btn btn-outline">← К списку</a>
+        }
+        else
+        {
+            <form method="post">
+                <div class="form-group">
+                    <label>Свободные номера</label>
+                    <div class="room-picker">
+                        @foreach (var room in Model.AvailableRooms)
+                        {
+                            <label class="room-option">
+                                <input type="radio" name="SelectedRoomId" value="@room.Id" required />
+                                <div class="room-option__body">
+                                    <img src="@room.ImageUrl" alt="@room.Number" />
+                                    <div class="room-option__info">
+                                        <strong>№ @room.Number — @room.Category</strong>
+                                        <span>до @room.Capacity гостей · @room.PricePerNight ₽/ночь</span>
+                                    </div>
+                                </div>
+                            </label>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a asp-page="/Rooms/Index" class="btn btn-outline">Назад</a>
+                    <button type="submit" class="btn btn-primary">Забронировать</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
