@@ -1208,4 +1208,56 @@ a {
         .hero-actions .btn {
             width: 100%;
         }
+
+
+    /* ===== Поисковая строка ===== */
+    .search-form {
+        display: flex;
+        max-width: 600px;
+        margin: 0 auto 40px auto; /* Центрируем по середине страницы */
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-pill); /* Делаем скругленные края (таблеткой) */
+        padding: 6px;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+        /* Красивое свечение при клике на строку */
+        .search-form:focus-within {
+            border-color: var(--bougie-blossom);
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-form input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--ink);
+            outline: none;
+        }
+
+            .search-form input::placeholder {
+                color: var(--muted);
+            }
+
+        .search-form button {
+            background: var(--miami-magenta); /* Используем твой акцентный цвет */
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 10px 28px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .search-form button:hover {
+                background: var(--magenta-dark);
+                box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+            }
 }

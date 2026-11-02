@@ -1,7 +1,7 @@
-﻿namespace wt_lab5_5razor_pravotorova.Models;
+﻿namespace wt_lab8_8razor_postgresql_pravotorova.Models;
 
 public class Amenity
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = "";
 }

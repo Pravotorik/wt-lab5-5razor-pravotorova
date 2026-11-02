@@ -1,25 +1,30 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_pravotorova.Data;
-using wt_lab5_5razor_pravotorova.Models;
+using wt_lab8_8razor_postgresql_pravotorova.Data;
+using wt_lab8_8razor_postgresql_pravotorova.Models;
 
-namespace wt_lab5_5razor_pravotorova.Pages.Rooms;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages.Rooms;
 
 public class DetailsModel : PageModel
 {
-    public Room? Room { get; set; }
+    private readonly AppDbContext _context;
 
-    public IActionResult OnGet(int id)
+    public DetailsModel(AppDbContext context)
     {
-        Room = RoomStore.Rooms.FirstOrDefault(r => r.Id == id);
-        if (Room == null) return NotFound();
-        return Page();
+        _context = context;
     }
 
-    public IActionResult OnPostDelete(int id)
+    public Room Room { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        var room = RoomStore.Rooms.FirstOrDefault(r => r.Id == id);
-        if (room != null) RoomStore.Rooms.Remove(room);
-        return RedirectToPage("./Index");
+        if (id == null) return NotFound();
+
+        var room = await _context.Rooms.FirstOrDefaultAsync(m => m.Id == id);
+        if (room == null) return NotFound();
+
+        Room = room;
+        return Page();
     }
 }

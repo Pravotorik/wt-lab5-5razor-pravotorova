@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace wt_lab5_5razor_pravotorova.Pages;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages;
 
 public class IndexModel : PageModel
 {

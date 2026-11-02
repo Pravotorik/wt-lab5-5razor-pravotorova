@@ -1,26 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_pravotorova.Data;
-using wt_lab5_5razor_pravotorova.Models;
+using wt_lab8_8razor_postgresql_pravotorova.Data;
+using wt_lab8_8razor_postgresql_pravotorova.Models;
 
-namespace wt_lab5_5razor_pravotorova.Pages.Rooms;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages.Rooms;
 
 public class CreateModel : PageModel
 {
-    [BindProperty]
-    public Room Room { get; set; } = new();
+    private readonly AppDbContext _context;
 
-    public void OnGet() { }
-
-    public IActionResult OnPost()
+    public CreateModel(AppDbContext context)
     {
-        if (!ModelState.IsValid) return Page();
+        _context = context;
+    }
 
-        Room.Id = RoomStore.Rooms.Any() ? RoomStore.Rooms.Max(r => r.Id) + 1 : 1;
-        if (string.IsNullOrWhiteSpace(Room.ImageUrl))
-            Room.ImageUrl = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800";
+    [BindProperty]
+    public Room Room { get; set; } = default!;
 
-        RoomStore.Rooms.Add(Room);
+    public IActionResult OnGet()
+    {
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        _context.Rooms.Add(Room);
+        await _context.SaveChangesAsync();
+
         return RedirectToPage("./Index");
     }
 }

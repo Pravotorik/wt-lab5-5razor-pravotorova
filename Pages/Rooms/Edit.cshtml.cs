@@ -1,38 +1,52 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_pravotorova.Data;
-using wt_lab5_5razor_pravotorova.Models;
+using wt_lab8_8razor_postgresql_pravotorova.Data;
+using wt_lab8_8razor_postgresql_pravotorova.Models;
 
-namespace wt_lab5_5razor_pravotorova.Pages.Rooms;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages.Rooms;
 
 public class EditModel : PageModel
 {
-    [BindProperty]
-    public Room Room { get; set; } = new();
+    private readonly AppDbContext _context;
 
-    public IActionResult OnGet(int id)
+    public EditModel(AppDbContext context)
     {
-        var room = RoomStore.Rooms.FirstOrDefault(r => r.Id == id);
+        _context = context;
+    }
+
+    [BindProperty]
+    public Room Room { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var room = await _context.Rooms.FindAsync(id);
         if (room == null) return NotFound();
+
         Room = room;
         return Page();
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid) return Page();
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
 
-        var existing = RoomStore.Rooms.FirstOrDefault(r => r.Id == Room.Id);
-        if (existing == null) return NotFound();
+        _context.Attach(Room).State = EntityState.Modified;
 
-        existing.Number = Room.Number;
-        existing.Category = Room.Category;
-        existing.Capacity = Room.Capacity;
-        existing.PricePerNight = Room.PricePerNight;
-        existing.IsAvailable = Room.IsAvailable;
-        existing.Description = Room.Description;
-        if (!string.IsNullOrWhiteSpace(Room.ImageUrl))
-            existing.ImageUrl = Room.ImageUrl;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!_context.Rooms.Any(e => e.Id == Room.Id)) return NotFound();
+            else throw;
+        }
 
         return RedirectToPage("./Index");
     }

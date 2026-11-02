@@ -1,15 +1,34 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_pravotorova.Data;
-using wt_lab5_5razor_pravotorova.Models;
+using Microsoft.EntityFrameworkCore;
+using wt_lab8_8razor_postgresql_pravotorova.Data;
+using wt_lab8_8razor_postgresql_pravotorova.Models;
 
-namespace wt_lab5_5razor_pravotorova.Pages.Rooms;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages.Rooms;
 
 public class IndexModel : PageModel
 {
-    public List<Room> Rooms { get; set; } = new();
+    private readonly AppDbContext _context;
 
-    public void OnGet()
+    public IndexModel(AppDbContext context)
     {
-        Rooms = RoomStore.Rooms;
+        _context = context;
+    }
+
+    public IList<Room> Rooms { get; set; } = default!;
+
+    [BindProperty(SupportsGet = true)]
+    public string? Search { get; set; }
+
+    public async Task OnGetAsync()
+    {
+        var query = _context.Rooms.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(Search))
+        {
+            query = query.Where(r => r.Number.Contains(Search) || r.Category.Contains(Search));
+        }
+
+        Rooms = await query.OrderBy(r => r.Number).ToListAsync();
     }
 }

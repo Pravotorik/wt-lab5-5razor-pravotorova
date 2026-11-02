@@ -1,15 +1,24 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_pravotorova.Data;
-using wt_lab5_5razor_pravotorova.Models;
+using Microsoft.EntityFrameworkCore;
+using wt_lab8_8razor_postgresql_pravotorova.Data;
+using wt_lab8_8razor_postgresql_pravotorova.Models;
 
-namespace wt_lab5_5razor_pravotorova.Pages.Guests;
+namespace wt_lab8_8razor_postgresql_pravotorova.Pages.Guests;
 
 public class IndexModel : PageModel
 {
-    public List<Guest> Guests { get; set; } = new();
+    private readonly AppDbContext _context;
 
-    public void OnGet()
+    public IndexModel(AppDbContext context)
     {
-        Guests = GuestStore.Guests;
+        _context = context;
+    }
+
+    public IList<Guest> Guests { get; set; } = default!;
+
+    public async Task OnGetAsync()
+    {
+        // ѕолучаем список гостей из базы данных PostgreSQL
+        Guests = await _context.Guests.ToListAsync();
     }
 }
